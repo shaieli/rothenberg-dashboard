@@ -1,0 +1,242 @@
+/* ===== רקע כללי לכל האתר ===== */
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: "Arial", sans-serif;
+  background: none;
+}
+
+/* תמונת רקע */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: url("/images/background.jpg") center/cover no-repeat fixed;
+}
+
+/* ===== כותרת עליונה ===== */
+header {
+  text-align: center;
+  padding: 20px;
+  background: rgba(0, 51, 102, 0.6); /* כחול שקוף כדי לראות רקע */
+  color: white;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 2rem;
+  letter-spacing: 2px;
+}
+
+/* ===== מבנה עמוד כללי ===== */
+main {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 120px); /* משאיר מקום לפוטר ולכותרת */
+}
+
+.section {
+  flex: 1;
+  display: none; /* רק ה־active יוצג */
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  padding: 12px;
+}
+
+.section.active {
+  display: grid;
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ===== עיצוב כרטיסים ===== */
+.card {
+  background: rgba(255,255,255,0.9);
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* כרטיס "ריק" – בלי מסגרת וצל */
+.card.flush {
+  padding: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+/* כרטיס "צמוד" – מעט ריפוד בלבד (לאזור הייצור) */
+.card.tight {
+  padding: 8px !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* כותרת בכרטיס הצמוד – מרווח קטן יותר מתחת כדי לצמצם רווחים */
+.card.tight > h2 {
+  margin: 0 0 6px 0;
+  font-size: 1.1rem;
+  color: #0b3a66;
+}
+
+/* ===== קרוסלת תמונות ===== */
+.carousel {
+  position: relative;
+  flex: 1;
+  overflow: hidden;
+  border: none; /* בלי מסגרת */
+}
+
+.carousel img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* ממלא את המיכל */
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+.carousel img.active {
+  opacity: 1;
+}
+
+/* ===== PDF דרך iframe ===== */
+.pdf-container {
+  position: relative;
+  width: 100%;
+  min-height: 60vh; /* ניתן לשנות לפי הצורך */
+  background: transparent;
+  overflow: hidden;
+  border: 0;
+  box-shadow: none;
+  border-radius: 0;
+}
+
+.pdf-frame {
+  width: 100%;
+  height: 100%;
+  display: block;
+  border: 0; /* בלי מסגרת */
+  background: transparent;
+}
+
+/* ===== מקורות ייצור חשמל – גרף + רשימה (מצומצם יותר) ===== */
+.sources-wrap {
+  display: grid;
+  grid-template-columns: 260px 1fr; /* גרף מעט צר יותר + רשימה */
+  align-items: start;
+  gap: 6px;          /* רווח קטן בין הגרף לרשימה */
+  max-width: none;
+  margin: 0;
+}
+
+/* הגרף – בלי מסגרות וצללים, בלי מרווחי padding/margin */
+#carbon-chart {
+  width: 100%;
+  height: auto;
+  max-height: none;
+  background: transparent !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+/* הרשימה – טקסט גדול וברור יותר, בלי חיתוכים */
+.mix-list {
+  list-style: none;
+  margin: 0;
+  padding: 0 4px;
+  background: transparent !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  max-height: none !important;
+  overflow: visible;      /* לא נחתך */
+  font-size: 1.05rem;     /* הגדלת טקסט הנתונים */
+  line-height: 1.35;      /* קריאות טובה יותר */
+}
+
+.mix-list li {
+  display: grid;
+  grid-template-columns: auto 1fr auto; /* תווית | רווח | ערך+אחוז */
+  gap: 6px;              /* מרווח פנימי קטן */
+  align-items: center;
+  padding: 6px 0;        /* קצת יותר "בשר" לשורה */
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+
+.mix-list li:last-child {
+  border-bottom: none;
+}
+
+.mix-list .label {
+  font-weight: 700;
+  color: #0b3a66;
+}
+
+.mix-list .value {
+  color: #094065;
+  white-space: nowrap;
+  font-weight: 600;       /* מודגש קצת – הנתון בולט */
+}
+
+.pct-badge {
+  background: #2aa1f5;
+  color: #fff;
+  border-radius: 999px;
+  padding: 3px 10px;
+  font-size: 0.92rem;     /* קצת יותר גדול */
+  margin-inline-start: 8px;
+}
+
+/* במסכים צרים – נפילה לעמודה אחת */
+@media (max-width: 900px) {
+  .sources-wrap {
+    grid-template-columns: 1fr; /* גרף מעל הרשימה */
+    gap: 8px;
+  }
+}
+
+/* ===== פוטר – חדשות YNET: שני מסלולים רציפים ===== */
+footer {
+  height: 60px;
+  background: rgba(0,0,0,0.75);
+  color: white;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+#news-container {
+  position: relative;     /* חשוב: מאפשר מיקום אבסולוטי לרצועות */
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  direction: rtl;         /* טקסט עברי; ההזזה מתבצעת שמאלה ב-JS */
+}
+
+/* שתי רצועות שנעות ברצף (JS שולט ב-transform) */
+.news-track {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  white-space: nowrap;
+  will-change: transform;
+  padding-inline: 0;
+}
+
+.news-track a {
+  color: #fff;
+  text-decoration: none;  /* בלי קו תחתון */
+  margin: 0 28px;         /* רווח בין כותרות */
+  display: inline-block;
+}

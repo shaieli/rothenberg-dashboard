@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <title>תחנת הכח רוטנברג</title>
+
+  <!-- עיצוב כללי -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Chart.js לגרף העוגה -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <!-- כותרת עליונה שקופה (רואים רקע תמונה מאחור) -->
+  <header>
+    <h1>תחנת הכח רוטנברג</h1>
+  </header>
+
+  <!-- אזור מרכזי: שני "מסכים" מתחלפים כל 60 שניות -->
+  <main>
+    <!-- מסך ראשון: קרוסלה + PDF (דף ראשון, בלי UI) -->
+    <section id="section1" class="section active">
+      <div class="col">
+        <div class="card flush">
+          <!-- <h2>גלריית תמונות</h2> -->
+          <!-- הקרוסלה תתמלא דינמית ע"י JS לפי קבצים בתיקיית /images/gallery -->
+          <div class="carousel" id="carousel"></div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="card flush">
+          <!-- <h2>מסמך PDF</h2> -->
+          <!-- מציגים את העמוד הראשון בלבד, ללא סרגלים/כלים/גלילות -->
+          <div class="pdf-container">
+            <iframe
+              class="pdf-frame"
+              src="/docs/example.pdf#page=1&zoom=page-fit&view=Fit&toolbar=0&navpanes=0&scrollbar=0"
+            ></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- מסך שני: גרף עוגה + רשימת מקורות עם אחוזים + PDF נוסף -->
+    <section id="section2" class="section">
+      <div class="col">
+        <!-- כרטיס צמוד (בלי מסגרת/צבע רקע) עבור נתוני הייצור -->
+        <div class="card flush tight">
+          <h2>מקורות ייצור חשמל בישראל</h2>
+          <div class="sources-wrap">
+            <canvas id="carbon-chart" width="400" height="400"></canvas>
+            <ul id="carbon-list" class="mix-list"></ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="card flush">
+          <!-- <h2>מסמך PDF נוסף</h2> -->
+          <div class="pdf-container">
+            <iframe
+              class="pdf-frame"
+              src="/docs/example2.pdf#page=1&zoom=page-fit&view=Fit&toolbar=0&navpanes=0&scrollbar=0"
+            ></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- פוטר: מבזקי חדשות YNET - שתי רצועות רציפות -->
+  <footer>
+    <div id="news-container">
+      <!-- שתי רצועות שרצות ברצף; JS דואג להצמדה וגיבוי -->
+      <div id="news-track1" class="news-track">טוען חדשות...</div>
+      <div id="news-track2" class="news-track"></div>
+    </div>
+  </footer>
+
+  <!-- לוגיקה בצד לקוח -->
+  <script src="script.js"></script>
+</body>
+</html>
